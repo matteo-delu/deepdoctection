@@ -323,8 +323,8 @@ class Image:
         self,
         category_names: Optional[Union[str, ObjectTypes, Sequence[Union[str, ObjectTypes]]]] = None,
         annotation_ids: Optional[Union[str, Sequence[str]]] = None,
-        service_id: Optional[Union[str, Sequence[str]]] = None,
-        model_id: Optional[Union[str, Sequence[str]]] = None,
+        service_ids: Optional[Union[str, Sequence[str]]] = None,
+        model_ids: Optional[Union[str, Sequence[str]]] = None,
         session_ids: Optional[Union[str, Sequence[str]]] = None,
         ignore_inactive: bool = True,
     ) -> List[ImageAnnotation]:
@@ -337,8 +337,8 @@ class Image:
 
         :param category_names: A single name or list of names
         :param annotation_ids: A single id or list of ids
-        :param service_id: A single service name or list of service names
-        :param model_id: A single model name or list of model names
+        :param service_ids: A single service name or list of service names
+        :param model_ids: A single model name or list of model names
         :param session_ids: A single session id or list of session ids
         :param ignore_inactive: If set to `True` only active annotations are returned.
 
@@ -352,9 +352,9 @@ class Image:
                 else [get_type(category_names)]  # type:ignore
             )
         ann_ids = [annotation_ids] if isinstance(annotation_ids, str) else annotation_ids
-        service_id = [service_id] if isinstance(service_id, str) else service_id
-        model_id = [model_id] if isinstance(model_id, str) else model_id
-        session_id = [session_ids] if isinstance(session_ids, str) else session_ids
+        service_ids = [service_ids] if isinstance(service_ids, str) else service_ids
+        model_ids = [model_ids] if isinstance(model_ids, str) else model_ids
+        session_ids = [session_ids] if isinstance(session_ids, str) else session_ids
 
         if ignore_inactive:
             anns = filter(lambda x: x.active, self.annotations)
@@ -367,14 +367,14 @@ class Image:
         if ann_ids is not None:
             anns = filter(lambda x: x.annotation_id in ann_ids, anns)  # type:ignore
 
-        if service_id is not None:
-            anns = filter(lambda x: x.generating_service in service_id, anns)  # type:ignore
+        if service_ids is not None:
+            anns = filter(lambda x: x.service_id in service_ids, anns)  # type:ignore
 
-        if model_id is not None:
-            anns = filter(lambda x: x.generating_model in model_id, anns)  # type:ignore
+        if model_ids is not None:
+            anns = filter(lambda x: x.model_id in model_ids, anns)  # type:ignore
 
-        if session_id is not None:
-            anns = filter(lambda x: x.session_id in session_id, anns)  # type:ignore
+        if session_ids is not None:
+            anns = filter(lambda x: x.session_id in session_ids, anns)  # type:ignore
 
         return list(anns)
 
@@ -382,8 +382,8 @@ class Image:
         self,
         category_names: Optional[Union[str, ObjectTypes, Sequence[Union[str, ObjectTypes]]]] = None,
         annotation_ids: Optional[Union[str, Sequence[str]]] = None,
-        service_id: Optional[Union[str, Sequence[str]]] = None,
-        model_id: Optional[Union[str, Sequence[str]]] = None,
+        service_ids: Optional[Union[str, Sequence[str]]] = None,
+        model_ids: Optional[Union[str, Sequence[str]]] = None,
         session_ids: Optional[Union[str, Sequence[str]]] = None,
         ignore_inactive: bool = True,
     ) -> Iterable[ImageAnnotation]:
@@ -392,8 +392,8 @@ class Image:
 
         :param category_names: A single name or list of names
         :param annotation_ids: A single id or list of ids
-        :param service_id: A single service name or list of service names
-        :param model_id: A single model name or list of model names
+        :param service_ids: A single service name or list of service names
+        :param model_ids: A single model name or list of model names
         :param session_ids: A single session id or list of session ids
         :param ignore_inactive: If set to `True` only active annotations are returned.
 
@@ -404,8 +404,8 @@ class Image:
             self.get_annotation(
                 category_names=category_names,
                 annotation_ids=annotation_ids,
-                service_id=service_id,
-                model_id=model_id,
+                service_ids=service_ids,
+                model_ids=model_ids,
                 session_ids=session_ids,
                 ignore_inactive=ignore_inactive,
             )
