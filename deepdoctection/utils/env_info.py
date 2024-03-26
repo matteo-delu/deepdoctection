@@ -461,6 +461,7 @@ def auto_select_lib_and_device() -> None:
     is not installed raise ImportError.
     """
 
+    # USE_TF and USE_TORCH are env variables that steer DL library selection for Doctr.
     if tf_available() and tensorpack_available():
         from tensorpack.utils.gpu import get_num_gpu  # pylint: disable=E0401
 
@@ -469,11 +470,15 @@ def auto_select_lib_and_device() -> None:
             os.environ["USE_PYTORCH"] = "False"
             os.environ["USE_CUDA"] = "True"
             os.environ["USE_MPS"] = "False"
+            os.environ["USE_TF"] = "TRUE"
+            os.environ["USE_TORCH"] = "False"
             return
         if pytorch_available():
             os.environ["USE_TENSORFLOW"] = "False"
             os.environ["USE_PYTORCH"] = "True"
             os.environ["USE_CUDA"] = "False"
+            os.environ["USE_TF"] = "False"
+            os.environ["USE_TORCH"] = "TRUE"
             return
         logger.warning(
             LoggingRecord("You have Tensorflow installed but no GPU is available. All Tensorflow models require a GPU.")
@@ -481,6 +486,8 @@ def auto_select_lib_and_device() -> None:
         os.environ["USE_TENSORFLOW"] = "False"
         os.environ["USE_PYTORCH"] = "False"
         os.environ["USE_CUDA"] = "False"
+        os.environ["USE_TF"] = "False"
+        os.environ["USE_TORCH"] = "False"
     if pytorch_available():
         import torch
 
@@ -488,17 +495,23 @@ def auto_select_lib_and_device() -> None:
             os.environ["USE_TENSORFLOW"] = "False"
             os.environ["USE_PYTORCH"] = "True"
             os.environ["USE_CUDA"] = "True"
+            os.environ["USE_TF"] = "False"
+            os.environ["USE_TORCH"] = "TRUE"
             return
         if torch.backends.mps.is_available():
             os.environ["USE_TENSORFLOW"] = "False"
             os.environ["USE_PYTORCH"] = "True"
             os.environ["USE_CUDA"] = "False"
             os.environ["USE_MPS"] = "True"
+            os.environ["USE_TF"] = "False"
+            os.environ["USE_TORCH"] = "TRUE"
             return
         os.environ["USE_TENSORFLOW"] = "False"
         os.environ["USE_PYTORCH"] = "True"
         os.environ["USE_CUDA"] = "False"
         os.environ["USE_MPS"] = "False"
+        os.environ["USE_TF"] = "False"
+        os.environ["USE_TORCH"] = "TRUE"
         return
     logger.warning(
         LoggingRecord(
