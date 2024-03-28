@@ -57,7 +57,7 @@ _DEPS = [
     "pycocotools>=2.0.2",
     "pypdf>=3.16.0",
     "python-prctl",
-    "pyyaml==6.0",
+    "pyyaml==6.0.1",
     "pyzmq>=16",
     "termcolor>=1.1",
     "tabulate>=0.7.7",
