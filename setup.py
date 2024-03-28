@@ -45,7 +45,7 @@ _DEPS = [
     "catalogue==2.0.7",
     "distance==0.1.3",
     "huggingface_hub>=0.12.0",
-    "importlib-metadata>=4.11.2",
+    "importlib-metadata>=5.0.0",
     "jsonlines==3.1.0",
     "lxml>=4.9.1",
     "mock==4.0.3",
